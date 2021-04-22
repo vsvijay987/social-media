@@ -8,7 +8,6 @@ body {
 
 .spanLikesList:hover {
   text-decoration: underline;
-  cursor: pointer;
 }
 
 .mySpinner {
