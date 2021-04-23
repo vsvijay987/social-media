@@ -7,26 +7,14 @@ export const NoProfilePosts = () => (
   </>
 );
 
-export const NoFollowData = ({
-  profileName,
-  followersComponent = true,
-  followingComponent = true
-}) => (
+export const NoFollowData = ({ followersComponent, followingComponent }) => (
   <>
     {followersComponent && (
-      <Message
-        icon="user outline"
-        info
-        content={`${profileName.split(" ")[0] + " does not have followers"}`}
-      />
+      <Message icon="user outline" info content={`User does not have followers`} />
     )}
 
     {followingComponent && (
-      <Message
-        icon="user outline"
-        info
-        content={`${profileName.split(" ")[0] + " does not follow any users"}`}
-      />
+      <Message icon="user outline" info content={`User does not follow any users`} />
     )}
   </>
 );
@@ -47,4 +35,8 @@ export const NoPosts = () => (
     header="Hey!"
     content="No Posts. Make sure you have followed someone."
   />
+);
+
+export const NoProfile = () => (
+  <Message info icon="meh" header="Hey!" content="No Profile Found." />
 );
