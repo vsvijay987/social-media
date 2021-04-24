@@ -6,6 +6,10 @@ const PostModel = require("../models/PostModel");
 const FollowerModel = require("../models/FollowerModel");
 const ProfileModel = require("../models/ProfileModel");
 const bcrypt = require("bcryptjs");
+const {
+  newFollowerNotification,
+  removeFollowerNotification,
+} = require("../utilsServer/notificationActions");
 
 // GET PROFILE INFO
 router.get("/:username", authMiddleware, async (req, res) => {
@@ -17,7 +21,9 @@ router.get("/:username", authMiddleware, async (req, res) => {
       return res.status(404).send("No User Found");
     }
 
-    const profile = await ProfileModel.findOne({ user: user._id }).populate("user");
+    const profile = await ProfileModel.findOne({ user: user._id }).populate(
+      "user"
+    );
 
     const profileFollowStats = await FollowerModel.findOne({ user: user._id });
 
@@ -25,10 +31,14 @@ router.get("/:username", authMiddleware, async (req, res) => {
       profile,
 
       followersLength:
-        profileFollowStats.followers.length > 0 ? profileFollowStats.followers.length : 0,
+        profileFollowStats.followers.length > 0
+          ? profileFollowStats.followers.length
+          : 0,
 
       followingLength:
-        profileFollowStats.following.length > 0 ? profileFollowStats.following.length : 0
+        profileFollowStats.following.length > 0
+          ? profileFollowStats.following.length
+          : 0,
     });
   } catch (error) {
     console.error(error);
@@ -63,7 +73,9 @@ router.get("/followers/:userId", authMiddleware, async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const user = await FollowerModel.findOne({ user: userId }).populate("followers.user");
+    const user = await FollowerModel.findOne({ user: userId }).populate(
+      "followers.user"
+    );
 
     return res.json(user.followers);
   } catch (error) {
@@ -77,7 +89,9 @@ router.get("/following/:userId", authMiddleware, async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const user = await FollowerModel.findOne({ user: userId }).populate("following.user");
+    const user = await FollowerModel.findOne({ user: userId }).populate(
+      "following.user"
+    );
 
     return res.json(user.following);
   } catch (error) {
@@ -101,8 +115,9 @@ router.post("/follow/:userToFollowId", authMiddleware, async (req, res) => {
 
     const isFollowing =
       user.following.length > 0 &&
-      user.following.filter(following => following.user.toString() === userToFollowId)
-        .length > 0;
+      user.following.filter(
+        (following) => following.user.toString() === userToFollowId
+      ).length > 0;
 
     if (isFollowing) {
       return res.status(401).send("User Already Followed");
@@ -113,6 +128,8 @@ router.post("/follow/:userToFollowId", authMiddleware, async (req, res) => {
 
     await userToFollow.followers.unshift({ user: userId });
     await userToFollow.save();
+
+    await newFollowerNotification(userId, userToFollowId);
 
     return res.status(200).send("Updated");
   } catch (error) {
@@ -128,11 +145,11 @@ router.put("/unfollow/:userToUnfollowId", authMiddleware, async (req, res) => {
     const { userToUnfollowId } = req.params;
 
     const user = await FollowerModel.findOne({
-      user: userId
+      user: userId,
     });
 
     const userToUnfollow = await FollowerModel.findOne({
-      user: userToUnfollowId
+      user: userToUnfollowId,
     });
 
     if (!user || !userToUnfollow) {
@@ -141,26 +158,28 @@ router.put("/unfollow/:userToUnfollowId", authMiddleware, async (req, res) => {
 
     const isFollowing =
       user.following.length > 0 &&
-      user.following.filter(following => following.user.toString() === userToUnfollowId)
-        .length === 0;
+      user.following.filter(
+        (following) => following.user.toString() === userToUnfollowId
+      ).length === 0;
 
     if (isFollowing) {
       return res.status(401).send("User Not Followed before");
     }
 
     const removeFollowing = await user.following
-      .map(following => following.user.toString())
+      .map((following) => following.user.toString())
       .indexOf(userToUnfollowId);
 
     await user.following.splice(removeFollowing, 1);
     await user.save();
 
     const removeFollower = await userToUnfollow.followers
-      .map(follower => follower.user.toString())
+      .map((follower) => follower.user.toString())
       .indexOf(userId);
 
     await userToUnfollow.followers.splice(removeFollower, 1);
     await userToUnfollow.save();
+    await removeFollowerNotification(userId, userToUnfollowId);
 
     return res.status(200).send("Updated");
   } catch (error) {
@@ -174,7 +193,14 @@ router.post("/update", authMiddleware, async (req, res) => {
   try {
     const { userId } = req;
 
-    const { bio, facebook, youtube, twitter, instagram, profilePicUrl } = req.body;
+    const {
+      bio,
+      facebook,
+      youtube,
+      twitter,
+      instagram,
+      profilePicUrl,
+    } = req.body;
 
     let profileFields = {};
     profileFields.user = userId;
