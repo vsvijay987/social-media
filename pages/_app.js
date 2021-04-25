@@ -16,7 +16,8 @@ class MyApp extends App {
       ctx.pathname === "/" ||
       ctx.pathname === "/[username]" ||
       ctx.pathname === "/notifications" ||
-      ctx.pathname === "/post/[postId]";
+      ctx.pathname === "/post/[postId]" ||
+      ctx.pathname === "/messages";
 
     if (!token) {
       protectedRoutes && redirectUser(ctx, "/login");
