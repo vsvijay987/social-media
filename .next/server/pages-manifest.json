@@ -2,9 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/reset": "pages/reset.js",
-  "/login": "pages/login.js",
   "/": "pages/index.js",
-  "/reset/[token]": "pages/reset/[token].js",
+  "/search": "pages/search.js",
+  "/notifications": "pages/notifications.js",
   "/messages": "pages/messages.js"
 }

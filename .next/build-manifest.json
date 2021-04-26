@@ -29,25 +29,20 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/login": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/login.js"
-    ],
     "/messages": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/messages.js"
     ],
-    "/reset": [
+    "/notifications": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/reset.js"
+      "static/chunks/pages/notifications.js"
     ],
-    "/reset/[token]": [
+    "/search": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/reset/[token].js"
+      "static/chunks/pages/search.js"
     ]
   },
   "ampFirstPages": []

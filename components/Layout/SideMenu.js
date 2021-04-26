@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { logoutUser } from "../../utils/authUser";
 
-function SideMenu({ user: { unreadNotification, email, unreadMessage, username } }) {
+function SideMenu({ user: { unreadNotification, email, unreadMessage, username }, pc = true}) {
   const router = useRouter();
 
   const isActive = route => router.pathname === route;
@@ -20,7 +20,7 @@ function SideMenu({ user: { unreadNotification, email, unreadMessage, username }
           <List.Item active={isActive("/")}>
             <Icon name="home" size="large" color={isActive("/") && "teal"}/>
             <List.Content>
-              <List.Header content="Home" />
+              {pc && <List.Header content="Home" />}
             </List.Content>
           </List.Item>
         </Link>
@@ -36,7 +36,7 @@ function SideMenu({ user: { unreadNotification, email, unreadMessage, username }
               }
             />
             <List.Content>
-              <List.Header content="Messages" />
+              {pc && <List.Header content="Messages" />}
             </List.Content>
           </List.Item>
         </Link>
@@ -53,7 +53,7 @@ function SideMenu({ user: { unreadNotification, email, unreadMessage, username }
               }
             />
             <List.Content>
-              <List.Header content="Notifications" />
+              {pc && <List.Header content="Notifications" />}
             </List.Content>
           </List.Item>
         </Link>
@@ -67,7 +67,7 @@ function SideMenu({ user: { unreadNotification, email, unreadMessage, username }
               color={router.query.username === username && "teal"}
             />
             <List.Content>
-              <List.Header content="Account" />
+              {pc && <List.Header content="Account" />}
             </List.Content>
           </List.Item>
         </Link>
@@ -76,7 +76,7 @@ function SideMenu({ user: { unreadNotification, email, unreadMessage, username }
         <List.Item onClick={() => logoutUser(email)}>
           <Icon name="log out" size="large" />
           <List.Content>
-            <List.Header content="Logout" />
+            {pc && <List.Header content="Logout" />}
           </List.Content>
         </List.Item>
       </List>
