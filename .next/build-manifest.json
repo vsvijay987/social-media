@@ -14,10 +14,10 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
+    "/[username]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/index.js"
+      "static/chunks/pages/[username].js"
     ],
     "/_app": [
       "static/chunks/webpack.js",
@@ -29,10 +29,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/messages": [
+    "/post/[postId]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/messages.js"
+      "static/chunks/pages/post/[postId].js"
     ]
   },
   "ampFirstPages": []

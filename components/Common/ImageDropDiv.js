@@ -1,6 +1,8 @@
-import React from "react";
-import { Form, Segment, Image, Icon, Header } from "semantic-ui-react";
+import React, {useState} from "react";
+import { Form, Segment, Image, Icon, Header, Divider, Button } from "semantic-ui-react";
 import { useRouter } from "next/router";
+import CropImageModal from '../Post/CropImageModal';
+ 
 
 function ImageDropDiv({
   highlighted,
@@ -13,6 +15,7 @@ function ImageDropDiv({
   profilePicUrl,
 }) {
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
 
   const signupRoute = router.pathname === "/signup";
 
@@ -45,6 +48,15 @@ function ImageDropDiv({
 
   return (
     <>
+    {showModal && (
+        <CropImageModal
+          mediaPreview={mediaPreview}
+          setMediaPreview={setMediaPreview}
+          setMedia={setMedia}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      )}
       <Form.Field>
         <Segment placeholder basic secondary>
           <input
@@ -90,7 +102,21 @@ function ImageDropDiv({
                   onClick={() => inputRef.current.click()}
                 />
               </Segment>
+              
             )}
+            {mediaPreview !== null && (
+          <>
+            <Divider hidden />
+
+            <Button
+              content="Crop Image"
+              type="button"
+              primary
+              circular
+              onClick={() => setShowModal(true)}
+            />
+          </>
+        )}
           </div>
         </Segment>
       </Form.Field>
