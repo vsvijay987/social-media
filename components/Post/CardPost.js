@@ -75,7 +75,7 @@ function CardPost({ post, user, setPosts, setShowToastr, socket }) {
             />
           )}
 
-          <Card.Content>
+          <Card.Content style={{ backgroundColor: "#f8f2fc" }}>
             <Image
               floated="left"
               src={post.user.profilePicUrl}
@@ -133,7 +133,7 @@ function CardPost({ post, user, setPosts, setShowToastr, socket }) {
             </Card.Description>
           </Card.Content>
 
-          <Card.Content extra>
+          <Card.Content extra style={{ backgroundColor: "#f0f0f2" }}>
             <Icon
               name={isLiked ? "heart" : "heart outline"}
               color="red"

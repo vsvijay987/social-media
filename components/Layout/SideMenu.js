@@ -12,13 +12,14 @@ function SideMenu({ user: { unreadNotification, email, unreadMessage, username }
   return (
     <>
       <List
-        style={{ paddingTop: "1rem" }}
+        style={{ paddingTop: "1rem"}}
         size="big"
+        inverted='true'
         verticalAlign="middle"
         selection>
         <Link href="/">
           <List.Item active={isActive("/")}>
-            <Icon name="home" size="large" color={isActive("/") && "teal"}/>
+            <Icon name="home" size="large" color={isActive("/") && "blue"}/>
             <List.Content>
               {pc && <List.Header content="Home" />}
             </List.Content>
@@ -32,7 +33,7 @@ function SideMenu({ user: { unreadNotification, email, unreadMessage, username }
               name={unreadMessage ? "hand point right" : "mail outline"}
               size="large"
               color={
-                (isActive("/messages") && "teal") || (unreadMessage && "orange")
+                (isActive("/messages") && "olive") || (unreadMessage && "orange")
               }
             />
             <List.Content>
@@ -48,7 +49,7 @@ function SideMenu({ user: { unreadNotification, email, unreadMessage, username }
               name={unreadNotification ? "hand point right" : "bell outline"}
               size="large"
               color={
-                (isActive("/notifications") && "teal") ||
+                (isActive("/notifications") && "violet") ||
                 (unreadNotification && "orange")
               }
             />

@@ -16,6 +16,7 @@ import SideMenu from "./SideMenu";
 import Search from "./Search";
 import MobileHeader from "./MobileHeader";
 import { createMedia } from "@artsy/fresnel";
+import Mybuilds from "../Home/MyBuilds";
 
 const AppMedia = createMedia({
   breakpoints: { zero: 0, mobile: 550, tablet: 850, computer: 1080 },
@@ -48,22 +49,28 @@ function Layout({ children, user }) {
                   <Grid>
                     {!messagesRoute ? (
                       <>
-                        <Grid.Column floated="left" width={2}>
+                        <Grid.Column floated="left" width={3} color="black">
                           <Sticky context={contextRef}>
                             <SideMenu user={user} pc />
                           </Sticky>
                         </Grid.Column>
 
-                        <Grid.Column width={10}>
+                        <Grid.Column width={9}>
                           <Visibility context={contextRef}>
                             {children}
                           </Visibility>
                         </Grid.Column>
 
-                        <Grid.Column floated="left" width={4}>
+                        <Grid.Column floated="left" width={4} color="teal">
                           <Sticky context={contextRef}>
-                            <Segment basic>
-                              <Search />
+                            <Segment basic textAlign='center'>
+                              <Search/>
+                              <Divider hidden section />
+                              <Divider hidden section />
+                              <Divider hidden section />
+                              <Divider hidden section />
+
+                              <Mybuilds />
                             </Segment>
                           </Sticky>
                         </Grid.Column>
@@ -82,7 +89,7 @@ function Layout({ children, user }) {
                   <Grid>
                     {!messagesRoute ? (
                       <>
-                        <Grid.Column floated="left" width={1}>
+                        <Grid.Column floated="left" width={2} color="black">
                           <Sticky context={contextRef}>
                             <SideMenu user={user} pc={false} />
                           </Sticky>
@@ -108,7 +115,7 @@ function Layout({ children, user }) {
                   <Grid>
                     {!messagesRoute ? (
                       <>
-                        <Grid.Column floated="left" width={2}>
+                        <Grid.Column floated="left" width={2} color="black">
                           <Sticky context={contextRef}>
                             <SideMenu user={user} pc={false} />
                           </Sticky>
